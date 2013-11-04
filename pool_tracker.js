@@ -12,12 +12,12 @@ if (Meteor.isClient) {
   Template.leaderboard.teams = function () {
     return Teams.find({});
   };
-  */
   Template.leaderboard.players.helpers({
     teams: function () {
       console.log('hello');
     }
   });
+  */
 }
 
 // On server startup, create some players if the database is empty.
