@@ -13,13 +13,30 @@
     {{#each players}}
       {{> player}}
     {{/each}}
+    <br />
+    <br />
+    {{> updateTime}}
   </div>
-
 </template>
 
 <template name="player">
   <div class="player">
     <span class="name">{{name}}</span>
     <span class="score">{{score}}</span>
+    <div>
+      {{#each teams}}
+        {{> team}}
+      {{/each}}
+    </div>
   </div>
+</template>
+
+<template name="team">
+    <span class="teams">{{nick}} {{wins}}-{{losses}}</span>
+</template>
+
+<template name="updateTime">
+{{#if time}}
+Last updated {{time}}
+{{/if}}
 </template>

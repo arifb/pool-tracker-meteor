@@ -11,17 +11,13 @@ body {
 }
 
 #outer {
-    width: 600px;
+    width: 650px;
     margin: 0 auto;    
-}
-
-.player {
-    padding: 5px;
 }
 
 .player .name {
     display: inline-block;
-    width: 400px;
+    width: 450px;
     font-size: 1.75em;
 }
 
@@ -31,11 +27,9 @@ body {
     text-align: right;
     font-size: 2em;
     font-weight: bold;
-    color: #777;
 }
 
 .player .teams {
-    width: 400px;
     font-size: .8em;
     color: #777;
 }
