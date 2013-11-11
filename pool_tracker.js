@@ -8,7 +8,7 @@ if (Meteor.isClient) {
   };
 
   Template.player.teams = function () {
-    return Teams.find({ _id: { $in: this.teams }});
+    return Teams.find({ _id: { $in: this.teams }}, { sort: { created_at: 1 }});
   };
 
   Template.updateTime.time = function () {

@@ -14,7 +14,7 @@ Meteor.startup(function () {
       "Clippers", "Pacers", "Timberwolves", "Cavaliers", "Celtics", "Magic"];
 
     for (var i = 0; i < cities.length; i++) {
-      Teams.insert({city: cities[i], nick: nicks[i], wins: 0, losses: 0, differential: 0, updated_at: ''});
+      Teams.insert({city: cities[i], nick: nicks[i], wins: 0, losses: 0, differential: 0, updated_at: '', created_at: Date.now()});
     }
   }
 
@@ -39,7 +39,6 @@ Meteor.startup(function () {
 Meteor.setInterval(function () {
   Meteor.http.get("https://erikberg.com/nba/standings.json", { "headers" : { "User-Agent" : "Leaderboard/1.0 (arif.public@gmail.com" }},  function(error, result) {
     if (result.statusCode == 200) {
-      console.log(result.headers);
       res = JSON.parse(result.content);
       for (var i = 0; i < res.standing.length; i++) {
         var team = res['standing'][i];
