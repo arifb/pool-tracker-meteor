@@ -14,7 +14,7 @@ Meteor.startup(function () {
       "Clippers", "Pacers", "Timberwolves", "Cavaliers", "Celtics", "Magic"];
 
     for (var i = 0; i < cities.length; i++) {
-      Teams.insert({city: cities[i], nick: nicks[i], wins: 0, losses: 0, differential: 0, updated_at: '', created_at: Date.now()});
+      Teams.insert({ city: cities[i], nick: nicks[i], wins: 0, losses: 0, differential: 0, updated_at: '', created_at: Date.now() });
     }
   }
 
@@ -28,8 +28,8 @@ Meteor.startup(function () {
     for (var i = 0; i < names.length; i++) {
       var p = Players.insert({ name: names[i], score: 0, teams: [] });
       for (var j = 0; j < picked_teams[i].length; j++) {
-        var t = Teams.findOne({ nick: picked_teams[i][j]}); 
-        Players.update({ _id: p }, { $push: { teams: t._id }});
+        var t = Teams.findOne({ nick: picked_teams[i][j] }); 
+        Players.update({ _id: p }, { $push: { teams: t._id } });
       }
     }
   }
@@ -42,17 +42,17 @@ Meteor.setInterval(function () {
       res = JSON.parse(result.content);
       for (var i = 0; i < res.standing.length; i++) {
         var team = res['standing'][i];
-        Teams.update({nick: team['last_name']}, {$set: {wins: team['won'], losses: team['lost'], differential: (team['won'] - team['lost']), updated_at: res['standings_date']}});
+        Teams.update({ nick: team['last_name'] }, { $set: { wins: team['won'], losses: team['lost'], differential: (team['won'] - team['lost']), updated_at: res['standings_date'] } });
       }
       Players.find().forEach(function (player) {
         var score = 0;
         for (var i = 0; i < player.teams.length; i++) {
-          score += Teams.findOne({_id: player.teams[i]}).differential
+          score += Teams.findOne({ _id: player.teams[i] }).differential
         }
-        Players.update({_id: player._id}, {$set: {score: score}});
+        Players.update({ _id: player._id }, { $set: { score: score } });
       });
     } else {
       //error handling
     }
   });
-}, 60000);
+}, 6000);

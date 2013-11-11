@@ -4,11 +4,11 @@ Teams = new Meteor.Collection("teams");
 if (Meteor.isClient) {
 
   Template.leaderboard.players = function () {
-    return Players.find({}, { sort: { score: -1, name: 1}});
+    return Players.find({}, { sort: { score: -1, name: 1 } });
   };
 
   Template.player.teams = function () {
-    return Teams.find({ _id: { $in: this.teams }}, { sort: { created_at: 1 }});
+    return Teams.find({ _id: { $in: this.teams } }, { sort: { created_at: 1 } });
   };
 
   Template.updateTime.time = function () {
@@ -17,7 +17,5 @@ if (Meteor.isClient) {
       return new Date(team.updated_at).toDateString();
     }
   };
-}
 
-if (Meteor.isServer) {
 }
