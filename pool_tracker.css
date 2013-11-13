@@ -15,21 +15,32 @@ body {
     margin: 0 auto;    
 }
 
-.player .name {
-    display: inline-block;
-    width: 450px;
+.name {
     font-size: 1.75em;
 }
 
-.player .score {
-    display: inline-block;
-    width: 100px;
-    text-align: right;
-    font-size: 2em;
+.score {
+    font-size: 1.5em;
     font-weight: bold;
 }
 
-.player .teams {
+.stat {
+    font-size: 1.5em;
+}
+
+.teams {
     font-size: .8em;
     color: #777;
+}
+
+.table > thead > tr > th {
+  text-align: center;
+}
+
+.table > tbody > tr > td { 
+  border: none;
+}
+
+.td-center {
+  text-align: center;
 }

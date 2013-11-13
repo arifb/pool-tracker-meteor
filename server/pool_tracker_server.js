@@ -26,7 +26,7 @@ Meteor.startup(function () {
       ["Nets", "Rockets", "Lakers", "Trail Blazers", "Jazz", "Bucks"],
       ["Clippers", "Pacers", "Timberwolves", "Cavaliers", "Celtics", "Magic"]];
     for (var i = 0; i < names.length; i++) {
-      var p = Players.insert({ name: names[i], score: 0, teams: [] });
+      var p = Players.insert({ name: names[i], differential: 0, score: 0, teams: [] });
       for (var j = 0; j < picked_teams[i].length; j++) {
         var t = Teams.findOne({ nick: picked_teams[i][j] }); 
         Players.update({ _id: p }, { $push: { teams: t._id } });
@@ -45,14 +45,14 @@ Meteor.setInterval(function () {
         Teams.update({ nick: team['last_name'] }, { $set: { wins: team['won'], losses: team['lost'], differential: (team['won'] - team['lost']), updated_at: res['standings_date'] } });
       }
       Players.find().forEach(function (player) {
-        var score = 0;
+        var differential = 0;
         for (var i = 0; i < player.teams.length; i++) {
-          score += Teams.findOne({ _id: player.teams[i] }).differential
+          differential += Teams.findOne({ _id: player.teams[i] }).differential
         }
-        Players.update({ _id: player._id }, { $set: { score: score } });
+        Players.update({ _id: player._id }, { $set: { differential: differential, score: differential * 5 } });
       });
     } else {
       //error handling
     }
   });
-}, 60000);
+}, 5000);

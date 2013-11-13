@@ -1,8 +1,6 @@
 <head>
   <title>Leaderboard</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.2/css/bootstrap.min.css">
-  <link rel="stylesheet" href="sticky-footer.css">
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -14,49 +12,65 @@
 </head>
 
 <body>
-    <!-- Wrap all page content here -->
-    <div id="wrap">
+  <!-- Wrap all page content here -->
+  <div id="wrap">
 
-      <!-- Begin page content -->
-      <div class="container">
-        <div class="page-header">
-          <h1>nba leaderboard</h1>
-        </div>
+    <!-- Begin page content -->
+    <div class="container">
+      <div class="page-header">
+        <h1>nba leaderboard</h1>
+      </div>
 
       {{> leaderboard}}
-      </div>
+      <br />
+      <br />
+      {{> updateTime}}
     </div>
+  </div>
 
-    <div id="footer">
-      <div class="container">
-        <p class="text-muted credit">vancity. whut.</p>
-      </div>
+  <div id="footer">
+    <div class="container">
+      <p class="text-muted credit">vancity. whut.</p>
     </div>
-    <div id="outer">
-    </div>
+  </div>
+  <div id="outer">
+  </div>
 </body>
 
 <template name="leaderboard">
-  <div class="leaderboard">
-    {{#each players}}
+<div class="leaderboard">
+  <table class="table">
+    <thead>
+    <tr>
+      <th></th>
+      <th>w-l differential</th>
+      <th>score</th>
+    </tr>
+  </thead>
+    <tbody>
+      {{#each players}}
       {{> player}}
-    {{/each}}
-    <br />
-    <br />
-    {{> updateTime}}
-  </div>
+      {{/each}}
+    </tbody>
+  </table>
+</div>
 </template>
 
 <template name="player">
-  <div class="player">
-    <span class="name">{{name}}</span>
+<tr>
+  <td>
+    <span class="name">{{name}}</span><br />
+    {{#each teams}}
+    {{> team}}
+    {{/each}}
+  </td>
+  <td class="td-center">
+    <span class="stat">{{differential}}</span>
+  </td>
+  <td class="td-center">
     <span class="score">{{score}}</span>
-    <div>
-      {{#each teams}}
-        {{> team}}
-      {{/each}}
-    </div>
-  </div>
+  </td>
+</tr>
 </template>
 
 <template name="team">
@@ -64,7 +78,7 @@
 </template>
 
 <template name="updateTime">
-  {{#if time}}
-    Last updated {{time}}
-  {{/if}}
+{{#if time}}
+Last updated {{time}}
+{{/if}}
 </template>
