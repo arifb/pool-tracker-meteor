@@ -55,4 +55,4 @@ Meteor.setInterval(function () {
       //error handling
     }
   });
-}, 5000);
+}, 60000);
