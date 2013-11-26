@@ -1,5 +1,5 @@
 <head>
-  <title>Leaderboard</title>
+  <title>nba leaderboard</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
 
@@ -24,6 +24,7 @@
       {{> leaderboard}}
       <br />
       <br />
+      * Indicates a player's score is being adjusted by a prorated handicap (handicap / 82 * # of games played)<br /><br />
       {{> updateTime}}
     </div>
   </div>
@@ -59,7 +60,7 @@
 <template name="player">
 <tr>
   <td>
-    <span class="name">{{name}}</span><br />
+    <span class="name">{{name_stylized}}</span><br />
     {{#each teams}}
     {{> team}}
     {{/each}}

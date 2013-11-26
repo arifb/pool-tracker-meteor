@@ -11,6 +11,14 @@ if (Meteor.isClient) {
     return Teams.find({ _id: { $in: this.teams } }, { sort: { created_at: 1 } });
   };
 
+  Template.player.name_stylized = function () {
+    if (this.handicap > 0) {
+      return this.name + " *";
+    } else {
+      return this.name;
+    }
+  };
+
   Template.updateTime.time = function () {
     var team = Teams.findOne({});
     if (team) {

@@ -19,14 +19,15 @@ Meteor.startup(function () {
   }
 
   if (Players.find().count() == 0) {
-    var names = ["Josh", "Andrew", "Jamie", "Arif", "Steve"];
+    var names     = ["Josh", "Andrew", "Jamie", "Arif", "Steve"];
+    var handicaps = [100, 0, 0, 0, 0];
     var picked_teams = [["Heat", "Knicks", "Grizzlies", "Wizards", "Pelicans", "Suns"],
       ["Thunder", "Warriors", "Nuggets", "Pistons", "Raptors", "76ers"],
       ["Bulls", "Spurs", "Mavericks", "Hawks", "Kings", "Bobcats"],
       ["Nets", "Rockets", "Lakers", "Trail Blazers", "Jazz", "Bucks"],
       ["Clippers", "Pacers", "Timberwolves", "Cavaliers", "Celtics", "Magic"]];
     for (var i = 0; i < names.length; i++) {
-      var p = Players.insert({ name: names[i], differential: 0, score: 0, teams: [] });
+      var p = Players.insert({ name: names[i], handicap: handicaps[i], differential: 0, score: 0, teams: [] });
       for (var j = 0; j < picked_teams[i].length; j++) {
         var t = Teams.findOne({ nick: picked_teams[i][j] }); 
         Players.update({ _id: p }, { $push: { teams: t._id } });
@@ -46,10 +47,12 @@ Meteor.setInterval(function () {
       }
       Players.find().forEach(function (player) {
         var differential = 0;
+        var t            = Teams.findOne({});
+        var games_played = t.wins + t.losses;
         for (var i = 0; i < player.teams.length; i++) {
           differential += Teams.findOne({ _id: player.teams[i] }).differential
         }
-        Players.update({ _id: player._id }, { $set: { differential: differential, score: differential * 5 } });
+        Players.update({ _id: player._id }, { $set: { differential: differential, score: Math.ceil((differential * 5) - (player.handicap / 82 * games_played)) } });
       });
     } else {
       //error handling
