@@ -14,7 +14,7 @@ Meteor.startup(function () {
       "Clippers", "Pacers", "Timberwolves", "Cavaliers", "Celtics", "Magic"];
 
     for (var i = 0; i < cities.length; i++) {
-      Teams.insert({ city: cities[i], nick: nicks[i], wins: 0, losses: 0, differential: 0, updated_at: '', created_at: Date.now() });
+      Teams.insert({ city: cities[i], nick: nicks[i], wins: 0, losses: 0, differential: 0, updated_at: '', pick_order: i});
     }
   }
 
